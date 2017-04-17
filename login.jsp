@@ -4,16 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<title>Air B&B Login</title>
 
 <script LANGUAGE="javascript">
 
 function check_all_fields(form_obj){
-	alert(form_obj.searchAttribute.value+"='"+form_obj.attributeValue.value+"'");
-	if( form_obj.attributeValue.value == ""){
-		alert("Search field should be nonempty");
+	if( form_obj.nameValue.value == "")
+	{
+		alert("Please enter a username");
+		return false;
+	}
+	else if(form_obj.passwordValue.value == "")
+	{
+		alert("Please enter a password");
 		return false;
 	}
 	return true;
@@ -21,23 +24,25 @@ function check_all_fields(form_obj){
 
 </script> 
 
+</head>
+<body>
+
+
+
 <%
 String userName = request.getParameter("nameValue");
 String password = request.getParameter("passwordValue");
 if( userName == null && password == null ){
 %>
 
-	Enter User Name:
-	<form name="user" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
-		<!-- <input type=hidden name="userName" value="login"> -->
+	
+	<form name="userCredentials" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
+		Enter User Name:
 		<input type=text name="nameValue" length=10>
-		<input type=submit>
-	</form>
-	<BR><BR>
-	Enter Password:
-	<form name="password" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
-		<!-- <input type=hidden name="password" value="Password"> -->
+		<BR><BR>
+		Enter Password:
 		<input type=text name="passwordValue" length=10>
+		<BR><BR>
 		<input type=submit>
 	</form>
 
