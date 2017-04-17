@@ -184,4 +184,9 @@ public class User
 	{
 		return newReservations;
 	}
+	@Override
+	public String toString()
+	{
+		return "";
+	}
 }
