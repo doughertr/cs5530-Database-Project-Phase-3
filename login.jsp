@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" import="cs5530.*" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,16 +26,11 @@ function check_all_fields(form_obj){
 
 </head>
 <body>
-
-
-
 <%
 String userName = request.getParameter("nameValue");
 String password = request.getParameter("passwordValue");
 if( userName == null && password == null ){
 %>
-
-	
 	<form name="userCredentials" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
 		Enter User Name:
 		<input type=text name="nameValue" length=10>
@@ -47,8 +42,10 @@ if( userName == null && password == null ){
 	</form>
 
 <%
-
-} 
+} else{
+	Connector connector = new Connector();
+	User user = new User();	
+}
 %>
 
 </body>

@@ -58,7 +58,6 @@ if( searchAttribute == null ){
   %>
 
 <%
- connector.closeStatement();
  connector.closeConnection();
 }  // We are ending the braces for else here
 %>
