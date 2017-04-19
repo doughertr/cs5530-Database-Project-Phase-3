@@ -39,7 +39,7 @@ if( userName == null && password == null ){
 		Enter Password:
 		<input type=text name="passwordValue" length=10>
 		<BR><BR>
-		<input type=submit>
+		<button type=submit> Login </button>
 	</form>
 
 <%
