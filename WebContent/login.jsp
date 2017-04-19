@@ -1,5 +1,6 @@
-<%@ page language="java" import="cs5530.*" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="cs5530.*" %>
+<%@ page language="java" import="cs5530.User" %>
+<%@ page language="java" import="cs5530.Connector" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,7 +44,7 @@ if( userName == null && password == null ){
 
 <%
 } else{
-	Connector connector = new Connector();
+	Connector con = new Connector();
 	User user = new User();	
 }
 %>
