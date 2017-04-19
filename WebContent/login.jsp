@@ -45,7 +45,13 @@ if( userName == null && password == null ){
 <%
 } else{
 	Connector con = new Connector();
-	User user = new User();	
+	User user = User.validateUser(userName, password);
+	
+	if(user != null)
+	{%>
+		index.html
+	<%}
+	
 }
 %>
 
