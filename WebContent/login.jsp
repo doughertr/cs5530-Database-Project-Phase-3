@@ -57,11 +57,13 @@ else{
 		response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
 	}
 	else
-	{%>
-		<p>Failed to Login</p>
-	<%
-		response.sendRedirect("login.jsp")
+	{
+		%>
+		<script>alert("failed to login");</script>
+		<%
+		response.sendRedirect("login.jsp");
 	}
+
 }%>
 
 </body>
