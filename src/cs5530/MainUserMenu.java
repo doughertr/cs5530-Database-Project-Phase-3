@@ -6,22 +6,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.servlet.jsp.JspWriter;
+
 public class MainUserMenu
 {
 
-	private static void displayMenuText()
+	public static void displayMenuText(JspWriter out) throws IOException
 	{
-		System.out.println("------Main Menu------");
-		System.out.println("1. View Reservations and record stays");
-		System.out.println("2. View Past Stays");
-		System.out.println("3. Browse Available Houses");
-		System.out.println("4. Manage Properties");
-		System.out.println("5. View Shopping Cart");
-		System.out.println("6. View User Stats");
-		System.out.println("7. Community");
-		System.out.println("8. View Admin Menu");
-		System.out.println("9. Exit");
-		System.out.println("Please enter your choice:");
+		out.write("<ul>");
+		out.write("<li>------Main Menu------</li>");
+		out.write("<li>1. View Reservations and record stays</li>");
+		out.write("<li>2. View Past Stays</li>");
+		out.write("<li>3. Browse Available Houses</li>");
+		out.write("<li>4. Manage Properties</li>");
+		out.write("<li>5. View Shopping Cart</li>");
+		out.write("<li>6. View User Stats</li>");
+		out.write("<li>7. Community</li>");
+		out.write("<li>8. View Admin Menu</li>");
+		out.write("<li>9. Exit</li>");
+		out.write("</ul>");
 	}
 
 	public static void displayMenu(User currUser) throws Exception
@@ -31,7 +34,6 @@ public class MainUserMenu
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		while (true)
 		{
-			displayMenuText();
 
 			while ((choice = in.readLine()) == null && choice.length() == 0);
 			try

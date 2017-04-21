@@ -10,10 +10,6 @@
 <script LANGUAGE="javascript">
 
 function check_all_fields(form_obj){
-	if(form_obj.newUser.value == "true")
-	{
-		return true;
-	}
 	if( form_obj.nameValue.value == "")
 	{
 		alert("Please enter a username");
@@ -30,11 +26,11 @@ function check_all_fields(form_obj){
 </script> 
 
 </head>
-<body style="background-color:powderblue;">
+<body>
 <%
 String userName = request.getParameter("nameValue");
 String password = request.getParameter("passwordValue");
-if( userName == null && password == null ){
+
 %>
 	<form name="userCredentials" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
 		Enter User Name:
@@ -43,31 +39,9 @@ if( userName == null && password == null ){
 		Enter Password:
 		<input type=text name="passwordValue" length=10>
 		<BR><BR>
-		<button type=submit> Login </button>
-		<BR><BR>
-	</form>
-	<form action="registerUser.jsp">
-    <input type="submit" value="Sign Up" />
+		<button type=submit > Login </button>
 	</form>
 
-<%
-} 
-else{
-	Connector con = new Connector();
-	User user = User.validateUser(userName, password);
-	
-	if(user != null)
-	{%>
-		<p>log in success!</p>
-	<%
-		Thread.sleep(1000);
-		response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
-	}
-	else
-	{%>
-		<p>Failed to Login</p>
-	<%}
-}%>
 
 </body>
 </html>
