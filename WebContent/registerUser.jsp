@@ -57,7 +57,7 @@ String address = request.getParameter("addressValue");
 String phone = request.getParameter("phoneValue");
 if(login == null && password == null && fName == null && lName == null && address == null && phone == null)
 {%>
-	<form name="userCredentials" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
+	<form name="userCredentials" method=get onsubmit="return check_all_fields(this)" action="registerUser.jsp">
 		Enter a new Username:
 		<input type=text name="loginValue" length=15>
 		<BR><BR>
@@ -87,12 +87,15 @@ if(login == null && password == null && fName == null && lName == null && addres
 } 
 else{
 	Connector con = new Connector();
-	User user = User.createUser(login, password, fName, lName, address, phone, out);
+	User user = User.createUser(login, password, fName, lName, address, phone);
 	
 	if(user != null)
 	{%>
-		logged in
-	<%}
+		<p>log in success!</p>
+	<%
+		Thread.sleep(1000);
+		response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
+	}
 	else
 	{%>
 		Failed to Login
