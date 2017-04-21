@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Community
+public class CommunityMenu
 {
 	
 	@SuppressWarnings("null")

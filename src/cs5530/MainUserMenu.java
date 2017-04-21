@@ -13,18 +13,18 @@ public class MainUserMenu
 
 	public static void displayMenuText(JspWriter out) throws IOException
 	{
-		out.write("<ul>");
+		out.write("<ol>");
 		out.write("<li>------Main Menu------</li>");
-		out.write("<li>1. View Reservations and record stays</li>");
-		out.write("<li>2. View Past Stays</li>");
-		out.write("<li>3. Browse Available Houses</li>");
-		out.write("<li>4. Manage Properties</li>");
-		out.write("<li>5. View Shopping Cart</li>");
-		out.write("<li>6. View User Stats</li>");
-		out.write("<li>7. Community</li>");
-		out.write("<li>8. View Admin Menu</li>");
-		out.write("<li>9. Exit</li>");
-		out.write("</ul>");
+		out.write("<li>View Reservations and record stays</li>");
+		out.write("<li>View Past Stays</li>");
+		out.write("<li>Browse Available Houses</li>");
+		out.write("<li>Manage Properties</li>");
+		out.write("<li>View Shopping Cart</li>");
+		out.write("<li>View User Stats</li>");
+		out.write("<li>Community</li>");
+		out.write("<li>View Admin Menu</li>");
+		out.write("<li>Exit</li>");
+		out.write("</ol>");
 	}
 
 	public static void displayMenu(User currUser) throws Exception
@@ -96,7 +96,7 @@ public class MainUserMenu
 			} else if (c == 7)
 			{
 				// Community Menu
-				Community.displayMenu(currUser);
+				CommunityMenu.displayMenu(currUser);
 			} else if (c == 8)
 			{
 				AdminMenu.displayMenu(currUser);
