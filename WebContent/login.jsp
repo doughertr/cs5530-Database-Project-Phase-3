@@ -53,16 +53,15 @@ else{
 	User user = User.validateUser(userName, password);
 	
 	if(user != null)
-	{%>
-		<p>log in success!</p>
-	<%
-		Thread.sleep(1000);
+	{
 		response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
 	}
 	else
 	{%>
 		<p>Failed to Login</p>
-	<%}
+	<%
+		response.sendRedirect("login.jsp")
+	}
 }%>
 
 </body>
