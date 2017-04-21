@@ -12,11 +12,7 @@
 <script LANGUAGE="javascript">
 
 function check_all_fields(form_obj){
-	if(form_obj.newUser.value == "true")
-	{
-		return true;
-	}
-	if( form_obj.nameValue.value == "")
+	if( form_obj.loginValue.value == "")
 	{
 		alert("Please enter a username");
 		return false;
@@ -26,6 +22,26 @@ function check_all_fields(form_obj){
 		alert("Please enter a password");
 		return false;
 	}
+	else if(form_obj.fnValue.value == "")
+	{
+		alert("Please enter a first name");
+		return false;
+	}
+	else if(form_obj.lnValue.value == "")
+	{
+		alert("Please enter a last name");
+		return false;
+	}
+	else if(form_obj.addressValue.value == "")
+	{
+		alert("Please enter an address");
+		return false;
+	}
+	else if(form_obj.phoneValue.value == "")
+	{
+		alert("Please enter a phone number");
+		return false;
+	}
 	return true;
 }
 
@@ -33,28 +49,32 @@ function check_all_fields(form_obj){
 </head>
 <body style="background-color:powderblue;">
 <%
-String userName = request.getParameter("nameValue");
+String login = request.getParameter("loginValue");
 String password = request.getParameter("passwordValue");
-if( userName == null && password == null ){
-%>
+String fName = request.getParameter("fnValue");
+String lName = request.getParameter("lnValue");
+String address = request.getParameter("addressValue");
+String phone = request.getParameter("phoneValue");
+if(login == null && password == null && fName == null && lName == null && address == null && phone == null)
+{%>
 	<form name="userCredentials" method=get onsubmit="return check_all_fields(this)" action="login.jsp">
 		Enter a new Username:
-		<input type=text name="nameValue" length=15>
+		<input type=text name="loginValue" length=15>
 		<BR><BR>
 		Enter a new Password:
-		<input type=text name="passwordValue" length=10>
+		<input type=text name="passwordValue" length=25>
 		<BR><BR>
 		Enter your First Name:
-		<input type=text name="fnValue" length=10>
+		<input type=text name="fnValue" length=25>
 		<BR><BR>
 		Enter your Last Name:
-		<input type=text name="lnValue" length=10>
+		<input type=text name="lnValue" length=25>
 		<BR><BR>
 		Enter your Home Address:
-		<input type=text name="addressValue" length=10>
+		<input type=text name="addressValue" length=50>
 		<BR><BR>
 		Enter your Phone Number:
-		<input type=text name="phoneValue" length=10>
+		<input type=text name="phoneValue" length=15>
 		<BR><BR>
 		<button type=submit> Register for Uotel! </button>
 		<BR><BR>
@@ -63,12 +83,11 @@ if( userName == null && password == null ){
 	<p>Already signed up?</p>
     <input type="submit" value="Login" />
 	</form>
-
 <%
 } 
 else{
 	Connector con = new Connector();
-	User user = User.validateUser(userName, password);
+	User user = User.createUser(login, password, fName, lName, address, phone, out);
 	
 	if(user != null)
 	{%>

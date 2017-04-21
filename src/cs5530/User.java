@@ -1,8 +1,11 @@
 package cs5530;
 
 import java.awt.List;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+
+import javax.servlet.jsp.JspWriter;
 
 public class User
 {
@@ -112,9 +115,10 @@ public class User
 		return validatedUser;
 	}
 
-	public static User createUser(String login, String pw, String fname, String lname, String addr, String phone)
+	public static User createUser(String login, String pw, String fname, String lname, String addr, String phone, JspWriter out) throws IOException
 	{
 		User createdUser;
+		out.write("<p>starting to create user</p>");
 
 		String sql = "INSERT INTO Users(login, password, first_name, last_name, home_address, phone_number) "
 				+ "VALUES(\"" + login + "\", \"" + pw + "\", \"" + fname + "\", \"" + lname + "\", \"" + addr + "\", \""
@@ -123,9 +127,11 @@ public class User
 		{
 			Connector.stmt.executeUpdate(sql);
 			createdUser = new User(login, fname, lname);
+			out.write("<p> created user</p>");
 		} catch (Exception e)
 		{
 			createdUser = null;
+			out.write("<p>" + e.getMessage() + "</p>");
 		}
 		return createdUser;
 	}

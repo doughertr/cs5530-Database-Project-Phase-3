@@ -10,10 +10,6 @@
 <script LANGUAGE="javascript">
 
 function check_all_fields(form_obj){
-	if(form_obj.newUser.value == "true")
-	{
-		return true;
-	}
 	if( form_obj.nameValue.value == "")
 	{
 		alert("Please enter a username");

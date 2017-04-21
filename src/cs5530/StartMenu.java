@@ -89,9 +89,9 @@ public class StartMenu {
 	            		System.out.println("Phone Number:");
 	            		while ((phone = in.readLine()) == null && phone.length() == 0);
 	            		 
-	            		User newUser = User.createUser(login, password, fname, lname, addr, phone);
+	            		//User newUser = User.createUser(login, password, fname, lname, addr, phone);
 	            		 
-	            		if(newUser != null)
+	            		/*if(newUser != null)
 	            		{
 	            			System.out.println("Welcome " + newUser.firstName + " " + newUser.lastName);
 	            			MainUserMenu.displayMenu(newUser);
@@ -99,7 +99,7 @@ public class StartMenu {
 	            		else
 	            		{
 	            			System.out.println("User creation failed, possibly due to your login already being in use");
-	            		}
+	            		}*/
 	            		 
 	            	 }
 	            	 else
