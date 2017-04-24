@@ -346,7 +346,7 @@ public class THBrowsingMenu
 			SingleTHMenu.displayMenu(U, selectedHouses.get(d-1));
 		}
 	}
-	public static boolean displaySearchResults(String option, String sql, JspWriter out) throws IOException
+	public static ArrayList<TH> displaySearchResults(String option, String sql, JspWriter out) throws IOException
 	{
 		//array list to store all selected houses
 		ArrayList<TH> selectedHouses = new ArrayList<TH>();
@@ -392,32 +392,23 @@ public class THBrowsingMenu
 		catch (Exception e) 
 		{
 			out.write("<p>cannot execute the query</p>");
-			return true;
+			return null;
 		}
 		
-		while (true)
+		//printing out search results and storing them inside of the array list
+		out.write("<p>-----All Search Results-----</p>");
+		for (int i = 0; i < selectedHouses.size(); i++) 
 		{
-			//printing out search results and storing them inside of the array list
-			out.write("<p>-----All Search Results-----</p>");
-			for (int i = 0; i < selectedHouses.size(); i++) 
-			{
-				if(option.equals("highPrice"))
-					out.write("<p>#" + (i + 1) + " Average Price: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
-				else if(option.equals("feedbackScore"))
-					out.write("<p>#" + (i + 1) + " Average Feedback Score: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
-				else if(option.equals("trustedUser"))
-					out.write("<p>#" + (i + 1) + " Average Trusted User Feedback Score: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
-				else
-					out.write("<p>#" + (i + 1) + " " + selectedHouses.get(i) + "</p>");
-			}
-			
-			//getting user input
-			//out.write("Select the house number you wish to view (or " + (selectedHouses.size() + 1) + " to exit): ");
-			
-			//finally open up the menu once the choice has been made
-			//SingleTHMenu.displayMenu(U, selectedHouses.get(d-1));
-			return true;
+			if(option.equals("highPrice"))
+				out.write("<p>#" + (i + 1) + " Average Price: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
+			else if(option.equals("feedbackScore"))
+				out.write("<p>#" + (i + 1) + " Average Feedback Score: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
+			else if(option.equals("trustedUser"))
+				out.write("<p>#" + (i + 1) + " Average Trusted User Feedback Score: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
+			else
+				out.write("<p>#" + (i + 1) + " " + selectedHouses.get(i) + "</p>");
 		}
+		return selectedHouses;
 	}
 
 	public static boolean displayFavoriteTHs(User u, JspWriter out) throws IOException

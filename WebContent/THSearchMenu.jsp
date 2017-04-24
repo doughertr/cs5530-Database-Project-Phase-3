@@ -1,4 +1,4 @@
-<%@page import="cs5530.*"%>
+<%@page import="cs5530.*" import="java.util.*,java.lang.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -46,8 +46,10 @@
 	String high = request.getParameter("highpriceSearch");
 		
 	String sqlSearch = "(SELECT * FROM TH t WHERE";
-	if(address != null)
+	int counter = 0;
+	if(address != null && address != "")
 	{
+		counter++;
 		//handling all searched addresses 
 		String[] addresses = address.split("\\b((?=AND|OR|and|or)|(?<=AND|OR|and|or))");
 		HelperFunctions.trimArray(addresses);
@@ -63,9 +65,11 @@
 		}
 	}
 	
-	if(category != null)
+	if(category != null && category != "")
 	{
-		sqlSearch += " AND ";
+		if(counter != 0)
+			sqlSearch += " AND ";
+		counter++;
 		//handling all searched categories
 		String[] categories = category.split("\\b((?=AND|OR|and|or)|(?<=AND|OR|and|or))");
 		HelperFunctions.trimArray(categories);
@@ -81,9 +85,11 @@
 		
 	}
 	
-	if(keyword != null)
+	if(keyword != null && keyword != "")
 	{
-		sqlSearch += " AND ";
+		if(counter != 0)
+			sqlSearch += " AND ";
+		counter++;
 		//handling all searched keywords
 		String[] keywords = keyword.split("\\b((?=AND|OR|and|or)|(?<=AND|OR|and|or))");
 		HelperFunctions.trimArray(keywords);
@@ -101,28 +107,28 @@
 		}
 	}
 	
-	if(high != null && low != null)
+	if(high != null && low != null && high != "" && low != "")
 	{
 		double h = Double.parseDouble(high), l = Double.parseDouble(low);
-		
-		sqlSearch += " AND ";
+		if(counter != 0)
+			sqlSearch += " AND ";
+		counter++;
 		//handling all searched price ranges
 		sqlSearch += " EXISTS("
 				+ 		"SELECT * "
 				+ 			"FROM Available a "
 				+ 			"WHERE a.hid = t.hid AND a.price_per_night >= '" + l + "' AND a.price_per_night <= '" + h + "') ";
 		
-		//end off SQL block
-		sqlSearch += " ) as h ";
 	}
+	//end off SQL block
+	sqlSearch += " ) as h ";
 	//intializing the sql sorting options
 	String sqlSort = "";
 	String sortingOption = request.getParameter("sortingOption");
-	if(sortingOption != null)
+	if(sortingOption != null && sortingOption != "")
 	{
 		if(sortingOption.equals("highPrice"))
 		{
-			System.out.println("Sorting by highest average price...");
 			sqlSort = "SELECT * "
 					+	"FROM TH t1, (SELECT h.hid, AVG(a.price_per_night) as avg_price "
 					+					"FROM " + sqlSearch + " , Available a "
@@ -133,7 +139,6 @@
 		}
 		else if(sortingOption.equals("feedbackScore"))
 		{
-			System.out.println("Sorting by highest average feedback score...");
 			sqlSort = "SELECT * "
 					+	"FROM TH t1, (SELECT h.hid, AVG(f.feedback_score) as avg_score "
 					+					"FROM " + sqlSearch + " , Feedback f "
@@ -144,7 +149,6 @@
 		}
 		else if(sortingOption.equals("trustedUser"))
 		{
-			System.out.println("Sorting by highest average trusted user score...");
 			sqlSort ="SELECT * "
 					+	"FROM TH t1, (SELECT h.hid, AVG(f.feedback_score) as avg_trusted_score "
 					+					"FROM " + sqlSearch + " , Feedback f, Users u "
@@ -162,11 +166,45 @@
 		{
 			//keep the query the same
 			sqlSort = sqlSearch.substring(1, sqlSearch.length() - 8) + ";";
-			boolean run = false; 
-			if(!run)
-				run = THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
-
+		}
+		ArrayList<TH> searchResults = THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
+		
+		if(searchResults != null)
+		{
+			%>
+			<br>
+			<form name="THSelection">
+				Please Select your choice number:
+				<select name="choice">
+					<%
+						for(int i = 0; i < searchResults.size(); i++)
+						{
+							out.write("<option value=" + searchResults.get(i) + ">" + (i + 1) + "</option>");
+						}
+					%>
+				</select>
+				<button type=submit>Submit</button>
+			</form>
+			<%
+		}
+		else
+		{ 
+			%>
+				<p>No Results</p>
+			<%
+		}
+		String stringSelectionOption = request.getParameter("choice");
+		if(stringSelectionOption != null)
+		{
+			int selectionOption = Integer.parseInt(stringSelectionOption);
+			session.setAttribute("TH", searchResults.get(selectionOption));
+			response.sendRedirect(response.encodeRedirectURL("SingleTHMenu.jsp"));
+		}
+		else
+		{
+		}
 	}
 	%>
+		
 </body>
 </html>
