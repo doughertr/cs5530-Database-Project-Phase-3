@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add Availability</title>
+<title>Record a Stay</title>
 
 <script LANGUAGE="javascript">
 
@@ -28,7 +28,6 @@ function check_all_fields(form_obj){
 	
 	return true;
 }
-
 </script> 
 
 </head>
@@ -36,35 +35,29 @@ function check_all_fields(form_obj){
 
 <%
 User u = User.class.cast(session.getAttribute("User"));
-TH updateTH = TH.class.cast(session.getAttribute("TH")); 
-
+Reservation r = Reservation.class.cast(session.getAttribute("Reservation"));
+Period p = r.reservationPeriod;
 String start = request.getParameter("startValue");
 String end = request.getParameter("endValue");
-String price = request.getParameter("priceValue");
 
-if(start == null && end == null && price == null)
+if(start == null && end == null)
 {%>
-	<h>Adding Availability For TH</h>
-	<p><%= updateTH.toString() %></p>
-	<form method=get onsubmit="return check_all_fields(this)" action="AddTHAvailability.jsp">
-		<p>All Dates should be in the format YYYY-MM-DDS</p>
-		Start Date Of Availability:
+	<h1>Recording a stay</h1>
+	<h>During reservation: <%=r.toString() %></h>
+	<p>All Dates should be in the format YYYY-MM-DD</p>
+
+	<form method=get onsubmit="return check_all_fields(this)" action="RecordStay.jsp">
+		Start Date Of Your Stay:
 		<input type=text name="startValue" length=15>
 		<BR><BR>
-		End Date Of Availability:
+		End Date Of Stay:
 		<input type=text name="endValue" length=50>
 		<BR><BR>
-		Price per night:
-		<input type=text name="priceValue" length=25>
-		<BR><BR>
-		<button type=submit> Add Availability </button>
+		<button type=submit> Record Stay </button>
 		<BR><BR>
 	</form>
-	<form action="UpdateTH.jsp">
+	<form action="UserHistory.jsp">
     <input type="submit" value = "Go Back"/>
-	</form>
-	<form action="ManagePropertyMenu.jsp">
-    <input type="submit" value = "Return to Property Management Menu"/>
 	</form>
 <%
 } 
@@ -73,19 +66,27 @@ else{
 	Date endDate = Date.valueOf(end);
 	if(!startDate.before(endDate))
 	{ %> 
-		<form name="availabilityDetails" method=get action="UpdateTH.jsp">
+		<form method=get action="UserHistory.jsp">
 		<h> Start Date must be before end date </h>
 		<input type="submit" value = "Go back"/>
-	</form>
+		</form>
+	<%
+	}
+	else if(!p.isWithinPeriod(startDate, endDate))
+	{
+		%> 
+		<form method=get action="UserHistory.jsp">
+		<h>Start and end date must be within reservation period</h>
+		<input type="submit" value = "Go back"/>
+		</form>
 	<%
 	}
 	else
 	{
-		double pricePerNight = Double.parseDouble(price);
-		Available.addNewAvailability(updateTH.hid, startDate.toString(), endDate.toString(), pricePerNight);
-		response.sendRedirect(response.encodeRedirectURL("ManagePropertyMenu.jsp"));
+		Period newPeriod = Period.addNewPeriod(start, end);
+		Stay temp = new Stay(u.login, r.hid, newPeriod, r.cost);
+		u.newStays.add(temp);
+		response.sendRedirect(response.encodeRedirectURL("UserHistory.jsp"));
 	}
 }%>
-
-</body>
 </html>

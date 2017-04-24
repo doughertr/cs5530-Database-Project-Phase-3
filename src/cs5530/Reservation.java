@@ -1,5 +1,6 @@
 package cs5530;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -7,15 +8,15 @@ import java.util.Calendar;
 
 import com.mysql.jdbc.Statement;
 
-public class Reservation
+public class Reservation implements Serializable
 {
 
-	String login;
-	int hid;
-	int pid;
-	double cost;
+	public String login;
+	public int hid;
+	public int pid;
+	public double cost;
 
-	Period reservationPeriod;
+	public Period reservationPeriod;
 
 	// NOTES
 	// TH suggestions must be displayed after a new reservation has been entered

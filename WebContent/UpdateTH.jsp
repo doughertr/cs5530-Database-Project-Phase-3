@@ -48,7 +48,7 @@ if(name == null && address == null && url == null && category == null && phone =
 		TH Keywords (Separated by commas):
 		<input type=text name="keyValues" length=15>
 		<BR><BR>
-		<button type=submit> Register your TH </button>
+		<button type=submit> Update your TH </button>
 		<BR><BR>
 	</form>
 	<form action="ManagePropertyMenu.jsp">
@@ -61,6 +61,43 @@ if(name == null && address == null && url == null && category == null && phone =
 <%
 } 
 else{
+	if(name == "")
+	{
+		name = updateTH.name;
+	}
+	if(address == "")
+	{
+		address = updateTH.address;
+	}
+	if(url == "")
+	{
+		url = updateTH.url;
+	}
+	if(category == "")
+	{
+		category = updateTH.category;
+	}
+	if(phone == "")
+	{
+		phone = updateTH.phoneNum;
+	}
+	if(year == "")
+	{
+		year = updateTH.yearBuilt;
+	}
+	if(keywords != "")
+	{
+		ArrayList<String> keys = Keywords.getKeywordsForTH(updateTH.hid);
+		for(String key : keys)
+		{
+			Keywords.removeKeywordFromTH(updateTH.hid, key);
+		}
+		String[] newKeys = keywords.split(",");
+		for (String keyword : newKeys)
+		{
+			Keywords.AddNewKeyword(updateTH.hid, keyword);
+		}
+	}
 	TH.updateTH(name, address, url, category, phone, year, u.login, keywords, updateTH.hid);
 	response.sendRedirect(response.encodeRedirectURL("ManagePropertyMenu.jsp"));
 }%>

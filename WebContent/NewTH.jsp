@@ -60,7 +60,7 @@ if(name == null && address == null && url == null && category == null && phone =
 <%
 } 
 else{
-	//TH.AddNewTH(name, address, url, category, phone, year, u.login, keywords);
+	TH.AddNewTH(name, address, url, category, phone, year, u.login, keywords);
 	response.sendRedirect(response.encodeRedirectURL("ManagePropertyMenu.jsp"));
 }%>
 </body></html>
