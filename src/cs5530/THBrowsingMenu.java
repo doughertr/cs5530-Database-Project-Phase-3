@@ -346,7 +346,7 @@ public class THBrowsingMenu
 			SingleTHMenu.displayMenu(U, selectedHouses.get(d-1));
 		}
 	}
-	public static void displaySearchResults(String option, String sql, JspWriter out) throws IOException
+	public static boolean displaySearchResults(String option, String sql, JspWriter out) throws IOException
 	{
 		//array list to store all selected houses
 		ArrayList<TH> selectedHouses = new ArrayList<TH>();
@@ -391,14 +391,14 @@ public class THBrowsingMenu
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("cannot execute the query");
-			return;
+			out.write("<p>cannot execute the query</p>");
+			return true;
 		}
 		
 		while (true)
 		{
 			//printing out search results and storing them inside of the array list
-			System.out.println("-----All Search Results-----");
+			out.write("<p>-----All Search Results-----</p>");
 			for (int i = 0; i < selectedHouses.size(); i++) 
 			{
 				if(option.equals("highPrice"))
@@ -416,7 +416,26 @@ public class THBrowsingMenu
 			
 			//finally open up the menu once the choice has been made
 			//SingleTHMenu.displayMenu(U, selectedHouses.get(d-1));
+			return true;
 		}
 	}
-	
+
+	public static boolean displayFavoriteTHs(User u, JspWriter out) throws IOException
+	{
+		ArrayList<TH> favorites = User.getFavorites(u.login);
+		out.write(cbuf);
+		for (int i = 0; i < favorites.size(); i++)
+		{	
+			out.write("<p>" + (i + 1) + ". " + favorites.get(i).name + "</p>");
+		}
+		return true;
+//		System.out.println("Type in a favorite TH number to view it, or hit enter to go back.");
+//		String viewTH;
+//		if (!(viewTH = in.readLine()).trim().equals(""))
+//		{
+//			int thChoice = Integer.parseInt(viewTH) - 1;
+//			TH th = favorites.get(thChoice);
+//			SingleTHMenu.displayMenu(u, th);
+//		}
+	}
 }

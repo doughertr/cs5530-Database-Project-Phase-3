@@ -10,8 +10,17 @@
 <body>
 	<h1>Favorite THs</h1>
 	<%
-
+		User u = User.class.cast(session.getAttribute("User"));
+		ArrayList<TH> favorites = User.getFavorites(u.login);
+		boolean run = false;
+		if(!run)
+		{
+			for (int i = 0; i < favorites.size(); i++)
+			{	
+				out.write("<p>" + (i + 1) + ". " + favorites.get(i).name + "</p>");
+			}
+			run = false;
+		}
 	%>
-
 </body>
 </html>

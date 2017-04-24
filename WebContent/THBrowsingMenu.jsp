@@ -10,7 +10,7 @@
 <body>
 	<h1>TH Browsing Options</h1>
 	<ol>
-		<li><a href="THSearchMenu.jsp"></a>Search for a TH</li>
+		<li><a href="THSearchMenu.jsp">Search for a TH</a></li>
 		<li><a href="THFavoriteMenu.jsp">View favorite THs</a></li>
 		<li><a href="ManagePropertyMenu.jsp">View all listed THs</a></li>
 		<li><a href="MainUserMenu.jsp">Back to menu</a></li>

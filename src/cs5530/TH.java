@@ -1,6 +1,7 @@
 package cs5530;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import javax.servlet.jsp.JspWriter;
 //construct a list of parameters and values for them to search by, and conjunctions for it
 //then go into some crazy intense SQL code for that
 
-public class TH
+public class TH implements Serializable
 {
 
 	int hid;
@@ -36,7 +37,7 @@ public class TH
 	//ArrayList<String> keywords;
 
 	public TH(int hid, String name, String address, String url, String category, String phoneNum, String yearBuilt,
-			String login)
+			String login) 
 	{
 		this.hid = hid;
 		this.name = name;

@@ -8,7 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- INSERT CODE HERE -->
-entered page:<% this.getClass().getSimpleName(); %>!
+<%
+	
+	response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
+%>
+		
+
 </body>
 </html>
