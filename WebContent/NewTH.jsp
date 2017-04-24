@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Create a New TH</title>
 </head>
 <body>
 
@@ -23,12 +23,13 @@ String category = request.getParameter("catValue");
 String phone = request.getParameter("phoneValue");
 String year = request.getParameter("yearValue");
 String keywords = request.getParameter("keyValues");
-
+User u = User.class.cast(session.getAttribute("User"));
 /* String name, String address, String url, String category, String phoneNum,
 String yearBuilt, String login, ArrayList<String> keywords */
 if(name == null && address == null && url == null && category == null && phone == null && year == null&& keywords == null)
 {%>
-	<form name="THDetails" method=get onsubmit="return check_all_fields(this)" action="registerUser.jsp">
+	<p>Hello, <%= u.login %>!</p>
+	<form name="THDetails" method=get onsubmit="return check_all_fields(this)" action="NewTH.jsp">
 		TH Listing Name:
 		<input type=text name="nameValue" length=15>
 		<BR><BR>
@@ -53,17 +54,13 @@ if(name == null && address == null && url == null && category == null && phone =
 		<button type=submit> Register your TH </button>
 		<BR><BR>
 	</form>
-	<form action="ManageProperyMenu.jsp">
-	<p>Go back</p>
-    <input type="submit" value="Login" />
+	<form action="ManagePropertyMenu.jsp">
+    <input type="submit" value = "Go Back"/>
 	</form>
 <%
 } 
 else{
-	//Connector con = new Connector();
-	//TH.AddNewTH(name, address, url, category, phone, year, session.get, keywords);
-	//User user = User.createUser(login, password, fName, lName, address, phone);
-	
-	
+	TH.AddNewTH(name, address, url, category, phone, year, u.login, keywords);
+	response.sendRedirect(response.encodeRedirectURL("ManagePropertyMenu.jsp"));
 }%>
 </body></html>

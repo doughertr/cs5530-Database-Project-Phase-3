@@ -1,8 +1,11 @@
 package cs5530;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import javax.servlet.jsp.JspWriter;
 
 //Goals For Today
 //Get keywords working
@@ -110,7 +113,7 @@ public class TH
 	}
 
 	public static void AddNewTH(String name, String address, String url, String category, String phoneNum,
-			String yearBuilt, String login, ArrayList<String> keywords)
+			String yearBuilt, String login, String keywords)
 	{
 		String sql = "INSERT INTO TH(name, address, url, category, phone_number, year_built, login) " + "VALUES(\""
 				+ name + "\", \"" + address + "\", \"" + url + "\", \"" + category + "\", \"" + phoneNum + "\", \""
@@ -122,7 +125,8 @@ public class TH
 			rs = Connector.stmt.executeQuery("SELECT LAST_INSERT_ID();");
 			rs.next();
 			int ID = rs.getInt(1);
-			for (String keyword : keywords)
+			String[] keys = keywords.split(",");
+			for (String keyword : keys)
 			{
 				Keywords.AddNewKeyword(ID, keyword);
 			}
@@ -150,6 +154,7 @@ public class TH
 		ArrayList<TH> properties = new ArrayList<TH>();
 		Statement stmt2 = Connector.stmt;
 		ResultSet rs = null;
+		String resultstr = "";
 		try
 		{
 			int row = 1;
@@ -165,12 +170,12 @@ public class TH
 				String yearBuilt = rs.getString("year_built");
 				TH property = new TH(hid, name, address, url, category, phoneNum, yearBuilt, login);
 				properties.add(property);
+				resultstr += "<b>" + property.toString() + "'</i><BR>\n";
 				row++;
 			}
 			rs.close();
 		} catch (Exception e)
 		{
-
 			System.out.println(e.getMessage());
 		} finally
 		{
@@ -185,12 +190,24 @@ public class TH
 		}
 		return properties;
 	}
-
-	public static void updateTH(TH property)
+	
+	public static void WriteAllTHsToScreen(String login,JspWriter out) throws IOException
 	{
-		String sql = "UPDATE TH SET name = \"" + property.name + "\", address = \"" + property.address + "\", url = \""
-				+ property.url + "\", category = \"" + property.category + "\", phone_number = \"" + property.phoneNum
-				+ "\", year_built = \"" + property.yearBuilt + "\" WHERE hid = " + property.hid + ";";
+		ArrayList<TH> properties = listAllTHsForUser(login);
+		out.write("<ol>");
+		for(TH property : properties)
+		{
+			out.write("<li>" + property.toString() + "</li>");
+		}
+		out.write("</ol>");
+	}
+
+	public static void updateTH(String name, String address, String url, String category, String phoneNum,
+			String yearBuilt, String login, String keywords, String hid)
+	{
+		String sql = "UPDATE TH SET name = \"" + name + "\", address = \"" + address + "\", url = \""
+				+ url + "\", category = \"" + category + "\", phone_number = \"" + phoneNum
+				+ "\", year_built = \"" + yearBuilt + "\" WHERE hid = " + hid + ";";
 		try
 		{
 			Connector.stmt.executeUpdate(sql);

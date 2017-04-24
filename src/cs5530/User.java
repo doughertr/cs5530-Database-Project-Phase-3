@@ -2,14 +2,15 @@ package cs5530;
 
 import java.awt.List;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 
 import javax.servlet.jsp.JspWriter;
 
-public class User
+public class User implements Serializable
 {
-	String login;
+	public String login;
 	String firstName;
 	String lastName;
 	ArrayList<Stay> newStays;

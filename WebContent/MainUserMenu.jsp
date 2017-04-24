@@ -7,8 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
-
+<body style="background-color:powderblue;">
+<%User u = User.class.cast(session.getAttribute("User")); %>
+<p>Hello, <%= u.login %>!</p>
 <h1>Main Menu</h1>
 <ol>
 	<li><a href="ManagePropertyMenu.jsp">View Reservations and record stays</a></li>

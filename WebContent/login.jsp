@@ -1,6 +1,6 @@
 <%@ page language="java" import="cs5530.*" %>
 <%@ page language="java" import="cs5530.User" %>
-<%@ page language="java" import="cs5530.Connector" %>
+<%@ page language="java" import="cs5530.Connector" import="java.io.Serializable"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,6 +54,7 @@ else{
 	
 	if(user != null)
 	{
+		session.setAttribute("User",user);
 		response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
 	}
 	else
