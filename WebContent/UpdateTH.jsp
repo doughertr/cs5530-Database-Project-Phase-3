@@ -10,7 +10,6 @@
 <body style="background-color:powderblue;">
 <%
 User u = User.class.cast(session.getAttribute("User"));
-ArrayList<TH> objects = TH.listAllTHsForUser(u.login); 
 TH updateTH = TH.class.cast(session.getAttribute("TH")); 
 
 String name = request.getParameter("nameValue");
@@ -26,7 +25,8 @@ String yearBuilt, String login, ArrayList<String> keywords */
 if(name == null && address == null && url == null && category == null && phone == null && year == null&& keywords == null)
 {%>
 	<h>Editting TH details</h>
-	<form name="THDetails" method=get onsubmit="return check_all_fields(this)" action="NewTH.jsp">
+	<p><%= updateTH.toString() %></p>
+	<form name="THDetails" method=get action="UpdateTH.jsp">
 		TH Listing Name:
 		<input type=text name="nameValue" length=15>
 		<BR><BR>
@@ -53,6 +53,10 @@ if(name == null && address == null && url == null && category == null && phone =
 	</form>
 	<form action="ManagePropertyMenu.jsp">
     <input type="submit" value = "Go Back"/>
+    <BR><BR>
+	</form>
+	<form action="AddTHAvailability.jsp">
+    <input type="submit" value = "Add TH Availability"/>
 	</form>
 <%
 } 

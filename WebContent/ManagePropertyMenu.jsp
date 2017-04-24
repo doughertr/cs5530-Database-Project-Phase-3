@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Manage Property Menu</title>
 </head>
 <body style="background-color:powderblue;">
 <!-- INSERT CODE HERE -->
@@ -26,8 +26,7 @@ entered page:<% this.getClass().getSimpleName(); %>!
 			System.out.println("Please enter your choice:"); -->
 
 	<li><a href="NewTH.jsp">Add a new TH listing</a></li>
-	<li><a href="UpdateTH.jsp">Update a TH listing</a></li>
-	<li><a href="ViewAllTH.jsp">View all your listed TH's</a></li>
+	<li><a href="ViewAllTH.jsp">View and update listed TH's</a></li>
 	<li><a href="MainUserMenu.jsp">Go back to main menu</a></li>
 </ol>
 

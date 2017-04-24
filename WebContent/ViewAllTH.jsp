@@ -27,9 +27,9 @@ if(indexStr == null)
 	} %>
 	</ol>
 
-	Enter The Index for the TH you want to edit:
+	Enter The Index for the TH you want to change:
 	<input type=text name="indexValue" length=5>
-    <input type="submit" value="Update A TH" />
+    <input type="submit" value="Update" />
     <BR><BR>
 	</form>
 	<form action="ManagePropertyMenu.jsp">
