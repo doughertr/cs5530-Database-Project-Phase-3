@@ -9,7 +9,12 @@
 </head>
 <body style="background-color:powderblue;">
 <% User u = User.class.cast(session.getAttribute("User")); 
-ArrayList<TH> properties = TH.listAllTHsForUser(u.login);%>
+ArrayList<TH> properties = TH.listAllTHsForUser(u.login);
+
+String indexStr = request.getParameter("indexValue");
+
+if(indexStr == null)
+{%>
 	
 	<form action="ViewAllTH.jsp">
 	<p>Viewing TH Listings Owned By <%=u.login %> </p>
@@ -22,9 +27,25 @@ ArrayList<TH> properties = TH.listAllTHsForUser(u.login);%>
 	} %>
 	</ol>
 
-	Enter The Index for the TH you want to edit:
+	Enter The Index for the TH you want to change:
 	<input type=text name="indexValue" length=5>
-    <input type="submit" value="Update A TH" />
+    <input type="submit" value="Update" />
+    <BR><BR>
 	</form>
+	<form action="ManagePropertyMenu.jsp">
+    <input type="submit" value="Go Back" />
+	</form>
+	
+<%} 
+else
+{
+	int index = Integer.parseInt(indexStr);	
+	TH home = properties.get(index - 1);
+	
+	session.setAttribute("TH",home);
+	response.sendRedirect(response.encodeRedirectURL("UpdateTH.jsp"));
+}
+
+%>
 </body>
 </html>

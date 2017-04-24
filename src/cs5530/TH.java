@@ -26,7 +26,7 @@ import javax.servlet.jsp.JspWriter;
 public class TH implements Serializable
 {
 
-	int hid;
+	public int hid;
 	String name;
 	String address;
 	String url;
@@ -204,7 +204,7 @@ public class TH implements Serializable
 	}
 
 	public static void updateTH(String name, String address, String url, String category, String phoneNum,
-			String yearBuilt, String login, String keywords, String hid)
+			String yearBuilt, String login, String keywords, int hid)
 	{
 		String sql = "UPDATE TH SET name = \"" + name + "\", address = \"" + address + "\", url = \""
 				+ url + "\", category = \"" + category + "\", phone_number = \"" + phoneNum
