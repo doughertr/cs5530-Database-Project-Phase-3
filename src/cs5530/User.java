@@ -13,8 +13,8 @@ public class User implements Serializable
 	public String login;
 	public String firstName;
 	public String lastName;
-	ArrayList<Stay> newStays;
-	ArrayList<Reservation> newReservations;
+	public ArrayList<Stay> newStays;
+	public ArrayList<Reservation> newReservations;
 
 	public User(String login, String firstName, String lastName)
 	{

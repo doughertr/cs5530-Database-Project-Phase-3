@@ -8,7 +8,7 @@ public class Available
 {
 	int hid;
 	int pid;
-	double pricePerNight;
+	public double pricePerNight;
 
 	public Available(int hid, int pid, double pricePerNight)
 	{

@@ -27,13 +27,13 @@ public class TH implements Serializable
 {
 
 	public int hid;
-	String name;
-	String address;
-	String url;
-	String category;
-	String phoneNum;
-	String yearBuilt;
-	String ownerLogin;
+	public String name;
+	public String address;
+	public String url;
+	public String category;
+	public String phoneNum;
+	public String yearBuilt;
+	public String ownerLogin;
 	//ArrayList<String> keywords;
 
 	public TH(int hid, String name, String address, String url, String category, String phoneNum, String yearBuilt,
