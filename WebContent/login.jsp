@@ -45,7 +45,6 @@ if( userName == null && password == null ){
 	<form action="registerUser.jsp">
     <input type="submit" value="Sign Up" />
 	</form>
-
 <%
 } 
 else{

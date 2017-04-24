@@ -11,8 +11,8 @@ import javax.servlet.jsp.JspWriter;
 public class User implements Serializable
 {
 	public String login;
-	String firstName;
-	String lastName;
+	public String firstName;
+	public String lastName;
 	ArrayList<Stay> newStays;
 	ArrayList<Reservation> newReservations;
 

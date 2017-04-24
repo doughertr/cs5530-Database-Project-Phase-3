@@ -17,7 +17,7 @@ entered page:<% this.getClass().getSimpleName(); %>!
 <h1>Manage Your Properties</h1>
 <ol>
 
-<!-- 			System.out.println("------Property Management------");
+<!-- 		System.out.println("------Property Management------");
 			System.out.println("1. Add a New TH");
 			System.out.println("2. Update an existing TH");
 			System.out.println("3. View all your listed THs");
