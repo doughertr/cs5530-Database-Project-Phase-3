@@ -1,16 +1,17 @@
 package cs5530;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Feedback
+public class Feedback implements Serializable
 {
 	int fid;
 	int feedbackScore;
 	String message;
 	String dateProvided;
 	int hid;
-	String login;
+	public String login;
 
 	public Feedback(int fid, int feedbackScore, String message, String dateProvided, int hid, String login)
 	{
