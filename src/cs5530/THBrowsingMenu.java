@@ -423,7 +423,6 @@ public class THBrowsingMenu
 	public static boolean displayFavoriteTHs(User u, JspWriter out) throws IOException
 	{
 		ArrayList<TH> favorites = User.getFavorites(u.login);
-		out.write(cbuf);
 		for (int i = 0; i < favorites.size(); i++)
 		{	
 			out.write("<p>" + (i + 1) + ". " + favorites.get(i).name + "</p>");

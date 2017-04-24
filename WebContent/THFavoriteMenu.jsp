@@ -1,4 +1,4 @@
-<%@page import="cs5530.*"%>
+<%@page import="cs5530.*" import="java.util.*,java.lang.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,6 +20,26 @@
 				out.write("<p>" + (i + 1) + ". " + favorites.get(i).name + "</p>");
 			}
 			run = false;
+		}
+	%>
+	<form name="favoriteSelection">
+		Please select your choice number:
+		<select name="choice">
+			<%
+				for(int i = 0; i < favorites.size(); i++)
+				{
+					out.write("<option value=" + favorites.get(i) + ">" + (i + 1) + "</option>");
+				}
+			%>
+		</select>
+	</form>
+	<%
+		String stringSelectionOption = request.getParameter("choice");
+		if(stringSelectionOption != null)
+		{
+			int selectionOption = Integer.parseInt(stringSelectionOption);
+			
+			
 		}
 	%>
 </body>

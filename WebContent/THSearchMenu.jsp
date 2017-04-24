@@ -162,9 +162,9 @@
 		{
 			//keep the query the same
 			sqlSort = sqlSearch.substring(1, sqlSearch.length() - 8) + ";";
-		boolean run = false; 
-		if(!run)
-			run = THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
+			boolean run = false; 
+			if(!run)
+				run = THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
 
 	}
 	%>
