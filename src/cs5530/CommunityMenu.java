@@ -1,9 +1,12 @@
 package cs5530;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import javax.servlet.jsp.JspWriter;
 
 public class CommunityMenu
 {
@@ -45,7 +48,7 @@ public class CommunityMenu
 				System.out.println("Enter user 2's login: ");
 				while ((usr2 = in.readLine()) == null && usr2.length() == 0);
 				
-				degreesOfSeperation(usr1,usr2);
+				//degreesOfSeperation(usr1,usr2);
 			}
 			if (c == 2)
 			{
@@ -76,7 +79,7 @@ public class CommunityMenu
 		}
 	}
 
-	private static void degreesOfSeperation(String usr1, String usr2)
+	public static void degreesOfSeperation(String usr1, String usr2, JspWriter out) throws IOException
 	{
 		try 
 		{
@@ -91,7 +94,7 @@ public class CommunityMenu
 			rs = Connector.stmt.executeQuery(sql);
 			if(rs.next() && rs.getInt("separation") > 0)
 			{
-				System.out.println(usr1 + " has 1 degree of separation from " + usr2);
+				out.write("<p>" + usr1 + " has 1 degree of separation from " + usr2 + "</p>");
 			}
 			//if 1 degree of separation doesn't exist, check for 2 degrees!
 			else
@@ -111,19 +114,18 @@ public class CommunityMenu
 				rs = Connector.stmt.executeQuery(sql);
 				if(rs.next() && rs.getInt("separation") > 0)
 				{
-					System.out.println(usr1 + " has 2 degrees of separation from " + usr2);
+					out.write("<p>" + usr1 + " has 2 degrees of separation from " + usr2 + "</p>");
 				}	
 				else
 				{
-					System.out.println("There exists no degrees of separation between " + usr1 + " and " + usr2);
+					out.write("<p>" + "There exists no degrees of separation between " + usr1 + " and " + usr2 + "</p>");
 				}
 				rs.close();
 			}
-			System.out.println();
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("query failed: " + e.getMessage());
+			out.write("query failed: " + e.getMessage());
 			return;
 		}
 	}
