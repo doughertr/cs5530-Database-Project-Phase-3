@@ -5,15 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>TH Browsing Menu</title>
+<title>Your Favorite THs</title>
 </head>
 <body>
-	<h1>TH Browsing Options</h1>
-	<ol>
-		<li><a href="THSearchMenu.jsp"></a>Search for a TH</li>
-		<li><a href="THFavoriteMenu.jsp">View favorite THs</a></li>
-		<li><a href="ManagePropertyMenu.jsp">View all listed THs</a></li>
-		<li><a href="MainUserMenu.jsp">Back to menu</a></li>
-	</ol>
+	<h1>Favorite THs</h1>
+	<%
+
+	%>
+
 </body>
 </html>

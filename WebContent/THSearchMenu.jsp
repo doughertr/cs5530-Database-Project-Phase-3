@@ -25,23 +25,33 @@
 		Price Range
 		<input type="text" name="lowpriceSearch">
 		<input type="text" name="highpriceSearch">
-		<br><br>
+		<br>
+		Sorting Options
+		<select name="sortingOption">
+			<option value="highPrice">Highest Average Price</option>
+			<option value="feedbackScore">Highest Average Feedback Score</option>
+			<option value="trustedUser">Highest Trusted User Score</option>
+			<option value="noSoting">No Sorting</option>
+		</select>
+		<br>
+		<br>
 		<button type="submit" value="searchButton">Search</button>
 	</form>
 	<%
 		
-		String address = request.getParameter("addressSearch");
-		String category = request.getParameter("categroySearch");
-		String keyword = request.getParameter("keywordSearch");
-		String low = request.getParameter("lowpriceSearch");
-		String high = request.getParameter("highpriceSearch");
+	String address = request.getParameter("addressSearch");
+	String category = request.getParameter("categroySearch");
+	String keyword = request.getParameter("keywordSearch");
+	String low = request.getParameter("lowpriceSearch");
+	String high = request.getParameter("highpriceSearch");
 		
+	String sqlSearch = "(SELECT * FROM TH t WHERE";
 	if(address != null)
 	{
+		//handling all searched addresses 
 		String[] addresses = address.split("\\b((?=AND|OR|and|or)|(?<=AND|OR|and|or))");
 		HelperFunctions.trimArray(addresses);
 		
-		String sqlSearch = "(SELECT * FROM TH t WHERE";
 		for(int i = 0; i < addresses.length; i++)
 		{
 			sqlSearch += " address LIKE \"%" + addresses[i] + "%\" ";
@@ -51,17 +61,110 @@
 			
 			sqlSearch += " " + addresses[++i] + " ";
 		}
+	}
+	
+	if(category != null)
+	{
+		sqlSearch += " AND ";
+		//handling all searched categories
+		String[] categories = category.split("\\b((?=AND|OR|and|or)|(?<=AND|OR|and|or))");
+		HelperFunctions.trimArray(categories);
+		for(int i = 0; i < categories.length; i++)
+		{
+			sqlSearch += " category LIKE \"%" + categories[i] + "%\" ";
 			
-		sqlSearch += " category LIKE \"%" + category + "%\" ";
-		sqlSearch += " EXISTS("
-				+ 		"SELECT * "
-				+ 			"FROM Keywords k, Has_Keywords hk "
-				+ 			"WHERE k.wid = hk.wid AND hk.hid = t.hid AND k.word LIKE '%" + keyword + "%') ";
+			if(i >= categories.length-1)
+				break;
+			
+			sqlSearch += " " + categories[++i] + " ";
+		}
+		
+	}
+	
+	if(keyword != null)
+	{
+		sqlSearch += " AND ";
+		//handling all searched keywords
+		String[] keywords = keyword.split("\\b((?=AND|OR|and|or)|(?<=AND|OR|and|or))");
+		HelperFunctions.trimArray(keywords);
+		for(int i = 0; i < keywords.length; i++)
+		{
+			sqlSearch += " EXISTS("
+					+ 		"SELECT * "
+					+ 			"FROM Keywords k, Has_Keywords hk "
+					+ 			"WHERE k.wid = hk.wid AND hk.hid = t.hid AND k.word LIKE '%" + keywords[i] + "%') ";
+			
+			if(i >= keywords.length-1)
+				break;
+			
+			sqlSearch += " " + keywords[++i] + " ";
+		}
+	}
+	
+	if(high != null && low != null)
+	{
+		double h = Double.parseDouble(high), l = Double.parseDouble(low);
+		
+		sqlSearch += " AND ";
+		//handling all searched price ranges
 		sqlSearch += " EXISTS("
 				+ 		"SELECT * "
 				+ 			"FROM Available a "
-				+ 			"WHERE a.hid = t.hid AND a.price_per_night >= '" + low + "' AND a.price_per_night <= '" + high + "') ";
+				+ 			"WHERE a.hid = t.hid AND a.price_per_night >= '" + l + "' AND a.price_per_night <= '" + h + "') ";
 		
+		//end off SQL block
+		sqlSearch += " ) as h ";
+	}
+	//intializing the sql sorting options
+	String sqlSort = "";
+	String sortingOption = request.getParameter("sortingOption");
+	if(sortingOption != null)
+	{
+		if(sortingOption.equals("highPrice"))
+		{
+			System.out.println("Sorting by highest average price...");
+			sqlSort = "SELECT * "
+					+	"FROM TH t1, (SELECT h.hid, AVG(a.price_per_night) as avg_price "
+					+					"FROM " + sqlSearch + " , Available a "
+					+					"WHERE h.hid = a.hid "
+					+					"GROUP BY h.hid) as t2 "
+					+	"WHERE t1.hid = t2.hid "
+					+	"ORDER BY avg_price desc;";
+		}
+		else if(sortingOption.equals("feedbackScore"))
+		{
+			System.out.println("Sorting by highest average feedback score...");
+			sqlSort = "SELECT * "
+					+	"FROM TH t1, (SELECT h.hid, AVG(f.feedback_score) as avg_score "
+					+					"FROM " + sqlSearch + " , Feedback f "
+					+					"WHERE h.hid = f.hid "
+					+					"GROUP BY h.hid) as t2 "
+					+	"WHERE t1.hid = t2.hid "
+					+	"ORDER BY avg_score desc;";
+		}
+		else if(sortingOption.equals("trustedUser"))
+		{
+			System.out.println("Sorting by highest average trusted user score...");
+			sqlSort ="SELECT * "
+					+	"FROM TH t1, (SELECT h.hid, AVG(f.feedback_score) as avg_trusted_score "
+					+					"FROM " + sqlSearch + " , Feedback f, Users u "
+					+					"WHERE h.hid = f.hid "
+					+ 						"AND f.login = u.login "
+					+ 						"AND NOT EXISTS (SELECT * "
+					+											"FROM Trusts tr "
+					+											"WHERE u.login = tr.login2 "
+					+ 												"AND tr.is_trusted_by = 0) "
+					+											"GROUP BY h.hid) as t2 "
+					+	"WHERE t1.hid = t2.hid "
+					+	"ORDER BY avg_trusted_score desc;";
+		}
+		else
+		{
+			//keep the query the same
+			sqlSort = sqlSearch.substring(1, sqlSearch.length() - 8) + ";";
+		}
+		THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
+
 	}
 	%>
 </body>

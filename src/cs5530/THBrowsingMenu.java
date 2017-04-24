@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.servlet.jsp.JspWriter;
+
 public class THBrowsingMenu
 {
 	public static void displayMenu(User u) throws Exception
@@ -344,4 +346,77 @@ public class THBrowsingMenu
 			SingleTHMenu.displayMenu(U, selectedHouses.get(d-1));
 		}
 	}
+	public static void displaySearchResults(String option, String sql, JspWriter out) throws IOException
+	{
+		//array list to store all selected houses
+		ArrayList<TH> selectedHouses = new ArrayList<TH>();
+		ArrayList<Double> searchResults = new ArrayList<Double>();
+		ResultSet rs = null;
+		try {
+			rs = Connector.stmt.executeQuery(sql);
+			int row = 0;
+			
+			//reading from the relational set and adding into the array list
+			while(rs.next())
+			{
+				//this section adds the searched keywords to a list to be displayed later
+				
+				//searching by average price
+				if(option.equals("highPrice"))
+				{
+					searchResults.add(rs.getDouble("avg_price"));
+				}
+				//search by average feedback score
+				else if(option.equals("feedbackScore"))
+				{
+					searchResults.add(rs.getDouble("avg_score"));
+				}
+				//search by avg trusted user score
+				else if(option.equals("trustedUser"))
+				{
+					searchResults.add(rs.getDouble("avg_trusted_score"));
+				}
+				else
+				{
+				}
+				
+				//Adding all of the other values from the TH
+				selectedHouses.add(new TH(rs.getInt("hid"), rs.getString("name"), rs.getString("address"),
+						rs.getString("url"), rs.getString("category"), rs.getString("phone_number"),
+						rs.getString("year_built"), rs.getString("login")));
+				
+			}
+			rs.close();
+			
+		} 
+		catch (Exception e) 
+		{
+			System.out.println("cannot execute the query");
+			return;
+		}
+		
+		while (true)
+		{
+			//printing out search results and storing them inside of the array list
+			System.out.println("-----All Search Results-----");
+			for (int i = 0; i < selectedHouses.size(); i++) 
+			{
+				if(option.equals("highPrice"))
+					out.write("<p>#" + (i + 1) + " Average Price: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
+				else if(option.equals("feedbackScore"))
+					out.write("<p>#" + (i + 1) + " Average Feedback Score: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
+				else if(option.equals("trustedUser"))
+					out.write("<p>#" + (i + 1) + " Average Trusted User Feedback Score: " + searchResults.get(i) + " " + selectedHouses.get(i) + "</p>");
+				else
+					out.write("<p>#" + (i + 1) + " " + selectedHouses.get(i) + "</p>");
+			}
+			
+			//getting user input
+			//out.write("Select the house number you wish to view (or " + (selectedHouses.size() + 1) + " to exit): ");
+			
+			//finally open up the menu once the choice has been made
+			//SingleTHMenu.displayMenu(U, selectedHouses.get(d-1));
+		}
+	}
+	
 }
