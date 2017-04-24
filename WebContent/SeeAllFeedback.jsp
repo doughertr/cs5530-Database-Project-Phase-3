@@ -13,7 +13,8 @@ User u = User.class.cast(session.getAttribute("User"));
 TH th = TH.class.cast(session.getAttribute("TH")); 
 ArrayList<Feedback> reviews = Feedback.getAllFeedbackForTH(th.hid);
 String indexStr = request.getParameter("indexValue");
-if(indexStr == null)
+String ratingStr = request.getParameter("ratingValue");
+if(indexStr == null && ratingStr == null)
 {%>
 	<form action="SeeAllFeedback.jsp">
 	<h1>Viewing All Feedback for <%=th.name %> </h1>
@@ -26,8 +27,11 @@ if(indexStr == null)
 	} %>
 	</ol>
 
-	To rate the usefulness of feedback enter the feedback number:
+	<p>Rate the usefulness of a feedback</p>
+	Index of Feedback to rate:
 	<input type=text name="indexValue" length=5>
+	Rating (0 = useless, 1 = useful, 2 = very useful):
+	<input type=text name="ratingValue" length=5>
     <input type="submit" value="rate feedback" />
     <BR><BR>
 	</form>
@@ -37,17 +41,21 @@ if(indexStr == null)
 <%} 
 else
 {
-	int index = Integer.parseInt(indexStr);	
+	int index = Integer.parseInt(indexStr);
+	int rating = Integer.parseInt(ratingStr);
 	Feedback fb = reviews.get(index - 1);
 	if (fb.login != u.login)
 	{
-		session.setAttribute("Feedback",fb);
-		response.sendRedirect(response.encodeRedirectURL("UpdateTH.jsp"));
-	}
+		Feedback.rateUsefulnessOfFeedback(rating, fb.fid, u.login);%>
+		<form method=get action="SeeAllFeedback.jsp">
+		<h>You gave the feedback from <%=fb.login%> a rating of <%=rating %></h>
+		<input type="submit" value = "Go back"/>
+		</form>
+	<%}
 	else
 	{%>
-		<form name="availabilityDetails" method=get action="MakeReservation.jsp">
-		<h> Start Date must be before end date </h>
+		<form method=get action="SeeAllFeedback.jsp">
+		<h>You cannot review your own feedback</h>
 		<input type="submit" value = "Go back"/>
 		</form>
 	<%}

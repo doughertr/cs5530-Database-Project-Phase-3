@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Feedback implements Serializable
 {
-	int fid;
-	int feedbackScore;
-	String message;
-	String dateProvided;
-	int hid;
+	public int fid;
+	public int feedbackScore;
+	public String message;
+	public String dateProvided;
+	public int hid;
 	public String login;
 
 	public Feedback(int fid, int feedbackScore, String message, String dateProvided, int hid, String login)
