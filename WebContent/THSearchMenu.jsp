@@ -170,37 +170,33 @@
 			sqlSort = sqlSearch.substring(1, sqlSearch.length() - 8) + ";";
 		}
 		searchResults = THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
-		
-	}
-	if(searchResults != null)
-	{
+		if(searchResults != null)
+		{
 
-		%>
-		<br>
-		<form name="THSelection">
-			Please Select your choice number:
-			<select name="choice">
-				<%
-					for(int i = 0; i < searchResults.size(); i++)
-					{
-						out.write("<option value=" + searchResults.get(i) + ">" + (i + 1) + "</option>");
-					}
-				%>
-			</select>
-			<button type=submit>Submit</button>
-		</form>
-		<%
-		if(stringSelectionOption != null)
-		{
-			int selectionOption = Integer.parseInt(stringSelectionOption);
-			session.setAttribute("TH", searchResults.get(selectionOption));
-			response.sendRedirect(response.encodeRedirectURL("SingleTHMenu.jsp"));
-		}
-		else
-		{
+			%>
+			<br>
+			<form name="THSelection">
+				Please Select your choice number:
+				<select name="choice">
+					<%
+						for(int i = 0; i < searchResults.size(); i++)
+						{
+							out.write("<option value=" + i + ">" + (i + 1) + "</option>");
+						}
+					%>
+				</select>
+				<button type=submit>Submit</button>
+			</form>
+			<%
 		}
 	}
-	%>
-		
+	if(stringSelectionOption != null)
+	{
+		int selectionOption = Integer.parseInt(stringSelectionOption);
+		session.setAttribute("TH", searchResults.get(selectionOption));
+		response.sendRedirect(response.encodeRedirectURL("SingleTHMenu.jsp"));
+	}
+
+	%>	
 </body>
 </html>
