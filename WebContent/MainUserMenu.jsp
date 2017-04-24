@@ -12,7 +12,7 @@
 <p>Hello, <%= u.login %>!</p>
 <h1>Main Menu</h1>
 <ol>
-	<li><a href="ManagePropertyMenu.jsp">View Reservations and record stays</a></li>
+	<li><a href="UserHistory.jsp">View Reservations and record stays</a></li>
 	<li><a href="">View Past Stays</a></li>
 	<li><a href="THBrowsingMenu.jsp">Browse Available Houses</a></li>
 	<li><a href="ManagePropertyMenu.jsp">Manage Properties</a></li>
