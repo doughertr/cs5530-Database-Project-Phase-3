@@ -8,12 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Create a New TH</title>
 </head>
-<body>
-
-<!-- String name, String address, String url, String category, String phoneNum,
-			String yearBuilt, String login, ArrayList<String> keywords -->
-
-</body>
 <body style="background-color:powderblue;">
 <%
 String name = request.getParameter("nameValue");

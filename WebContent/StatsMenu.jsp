@@ -5,10 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Stats Menu</title>
 </head>
-<body>
-<!-- INSERT CODE HERE -->
-entered page:<% this.getClass().getSimpleName(); %>!
+<body style="background-color:powderblue;">
+<h1> Not Implemented In Phase 3, Sorry!</h1>
+	<form action="MainUserMenu.jsp">
+    <input type="submit" value="go back" />
+	</form>
 </body>
 </html>

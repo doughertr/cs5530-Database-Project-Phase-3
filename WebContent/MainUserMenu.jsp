@@ -5,22 +5,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Main Menu</title>
 </head>
 <body style="background-color:powderblue;">
 <%User u = User.class.cast(session.getAttribute("User")); %>
-<p>Hello, <%= u.login %>!</p>
 <h1>Main Menu</h1>
 <ol>
 	<li><a href="UserHistory.jsp">View Reservations and record stays</a></li>
-	<li><a href="">View Past Stays</a></li>
 	<li><a href="THBrowsingMenu.jsp">Browse Available Houses</a></li>
 	<li><a href="ManagePropertyMenu.jsp">Manage Properties</a></li>
 	<li><a href="ShoppingCartMenu.jsp">View Shopping Cart</a></li>
 	<li><a href="StatsMenu.jsp">View User Stats</a></li>
 	<li><a href="CommunityMenu.jsp">View Community Page</a></li>
 	<li><a href="AdminMenu.jsp">View Admin Menu</a></li>
-	<!-- we should add a log out option -->
+	<form action="login.jsp">
+    <input type="submit" value="logout" />
+	</form>
 </ol>
 </body>
 </html>

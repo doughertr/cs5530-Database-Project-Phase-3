@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Community Menu</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 <h1>Community Menu</h1>
 <%
 //current user

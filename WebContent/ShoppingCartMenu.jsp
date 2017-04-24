@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Shopping Cart</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 <% 
 User u = User.class.cast(session.getAttribute("User"));
 ArrayList<Reservation> reservationList = u.getReservations();

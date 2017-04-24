@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TH Browsing Menu</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 	<h1>Search for a TH</h1>
 	<br>
 	<p>Search for a TH by inputting values into search fields. Use OR and AND to specify multiple values in a given field</p>

@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TH Browsing Menu</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 	<h1>TH Browsing Options</h1>
 	<ol>
 		<li><a href="THSearchMenu.jsp">Search for a TH</a></li>

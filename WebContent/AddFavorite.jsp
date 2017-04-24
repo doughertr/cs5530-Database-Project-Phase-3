@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Favorite Added</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 <% 
 User u = User.class.cast(session.getAttribute("User")); 
 TH th = TH.class.cast(session.getAttribute("TH")); 
