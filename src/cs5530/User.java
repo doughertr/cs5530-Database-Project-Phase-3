@@ -36,7 +36,7 @@ public class User implements Serializable
 
 	public static ArrayList<String> getTrustRecordings(String login)
 	{
-		String sql = "SELECT * FROM TRUSTS WHERE login1 = \"" + login + "\";";
+		String sql = "SELECT * FROM Trusts WHERE login1 = \"" + login + "\";";
 		ArrayList<String> trusted = new ArrayList<String>();
 		ResultSet rs = null;
 		try
