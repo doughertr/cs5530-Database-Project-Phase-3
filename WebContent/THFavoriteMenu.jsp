@@ -38,8 +38,8 @@
 		if(stringSelectionOption != null)
 		{
 			int selectionOption = Integer.parseInt(stringSelectionOption);
-			
-			
+			session.setAttribute("THSelection", favorites.get(selectionOption));
+			response.sendRedirect(response.encodeRedirectURL("SingleTHMenu.jsp"));
 		}
 	%>
 </body>
