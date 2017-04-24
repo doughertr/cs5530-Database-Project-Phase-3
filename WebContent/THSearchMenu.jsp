@@ -44,6 +44,8 @@
 	String keyword = request.getParameter("keywordSearch");
 	String low = request.getParameter("lowpriceSearch");
 	String high = request.getParameter("highpriceSearch");
+	String stringSelectionOption = request.getParameter("choice");
+	ArrayList<TH> searchResults = null;
 		
 	String sqlSearch = "(SELECT * FROM TH t WHERE";
 	int counter = 0;
@@ -167,33 +169,27 @@
 			//keep the query the same
 			sqlSort = sqlSearch.substring(1, sqlSearch.length() - 8) + ";";
 		}
-		ArrayList<TH> searchResults = THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
+		searchResults = THBrowsingMenu.displaySearchResults(sortingOption, sqlSort, out);
 		
-		if(searchResults != null)
-		{
-			%>
-			<br>
-			<form name="THSelection">
-				Please Select your choice number:
-				<select name="choice">
-					<%
-						for(int i = 0; i < searchResults.size(); i++)
-						{
-							out.write("<option value=" + searchResults.get(i) + ">" + (i + 1) + "</option>");
-						}
-					%>
-				</select>
-				<button type=submit>Submit</button>
-			</form>
-			<%
-		}
-		else
-		{ 
-			%>
-				<p>No Results</p>
-			<%
-		}
-		String stringSelectionOption = request.getParameter("choice");
+	}
+	if(searchResults != null)
+	{
+
+		%>
+		<br>
+		<form name="THSelection">
+			Please Select your choice number:
+			<select name="choice">
+				<%
+					for(int i = 0; i < searchResults.size(); i++)
+					{
+						out.write("<option value=" + searchResults.get(i) + ">" + (i + 1) + "</option>");
+					}
+				%>
+			</select>
+			<button type=submit>Submit</button>
+		</form>
+		<%
 		if(stringSelectionOption != null)
 		{
 			int selectionOption = Integer.parseInt(stringSelectionOption);
