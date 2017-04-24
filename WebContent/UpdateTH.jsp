@@ -11,12 +11,8 @@
 <% 
 User u = User.class.cast(session.getAttribute("User"));
 ArrayList<TH> objects = TH.listAllTHsForUser(u.login); 
-
-TH.WriteAllTHsToScreen(u.login, out);
-%>
-
-
-
+TH updateTH = TH.class.cast(session.getAttribute("TH")); %>
+<p>Edit TH with details: <%= updateTH.toString() %>!</p>
 
 </body>
 </html>
