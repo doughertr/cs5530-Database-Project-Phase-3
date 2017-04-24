@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 <!-- INSERT CODE HERE -->
 <!-- First get a basic menu displaying for this screen,
 	then add in links for it, so it connects to the various other pages I'll need,

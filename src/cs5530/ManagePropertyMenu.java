@@ -161,7 +161,7 @@ public class ManagePropertyMenu
 			keywords.add(keyword);
 		}
 
-		TH.AddNewTH(name, address, url, category, phoneNum, yearBuilt, u.login, keywords);
+		//TH.AddNewTH(name, address, url, category, phoneNum, yearBuilt, u.login, keywords);
 	}
 
 	private static void updateTH(User u, BufferedReader in) throws Exception
@@ -218,7 +218,7 @@ public class ManagePropertyMenu
 			property.yearBuilt = yearBuilt;
 		}
 
-		TH.updateTH(property);
+		//TH.updateTH(property);
 
 		System.out.println("Would you like to edit keywords for this property? (y/n)");
 		if (in.readLine().trim().toLowerCase().equals("y"))
