@@ -190,7 +190,6 @@ public class THBrowsingMenu
 				break;
 			}
 		}
-		
 		//end off SQL block
 		sqlSearch += " ) as h ";
 		
