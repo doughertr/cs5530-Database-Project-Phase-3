@@ -5,39 +5,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Shopping Cart</title>
+<title>Checkout</title>
 </head>
 <body>
 <% 
 User u = User.class.cast(session.getAttribute("User"));
 ArrayList<Reservation> reservationList = u.getReservations();
 ArrayList<Stay> stayList = u.newStays;
+
+	for (int i = 0; i < reservationList.size(); i++) 
+	{
+		Reservation.makeReservation(reservationList.get(i));
+	}
+	reservationList.clear();
+	for (int i = 0; i < stayList.size(); i++) 
+	{
+		Stay.RecordNewStay(stayList.get(i));
+	}
+	stayList.clear();
+	response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
 %>
-	<h1>Shopping Cart</h1>
-	<form action="ShoppingCartCheckout.jsp">
-	<h2>Reservations in cart:</h2>
-	<ol>
-		<%
-			for(Reservation r : reservationList)
-			{ %>
-				<li> <%=r.toString()%></li>
-			<%
-			}%>
-	</ol>
-	<h2>Reservations in cart:</h2>
-	<ol>
-		<%
-			for(Stay s : stayList)
-			{ %>
-				<li> <%=s.toString()%></li>
-			<%
-			}%>
-	</ol>
-	<button type=submit> Checkout </button>
-	<BR><BR>
-	</form>
-	<form action="MainUserMenu.jsp">
-    <input type="submit" value="Go Back" />
-	</form>
 </body>
 </html>

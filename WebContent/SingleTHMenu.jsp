@@ -11,7 +11,6 @@
 <% 
 User u = User.class.cast(session.getAttribute("User")); 
 TH th = TH.class.cast(session.getAttribute("TH")); 
-
 String indexStr = request.getParameter("indexValue");
 %>
 			
@@ -25,7 +24,7 @@ String indexStr = request.getParameter("indexValue");
 	<li>Year built: <%=th.yearBuilt%></li>
 </ol>
 <BR><BR>
-<form action="addFavorite.jsp">
+	<form action="AddFavorite.jsp">
     <input type="submit" value = "Add TH to Favorites"/>
     <BR><BR>
 </form>

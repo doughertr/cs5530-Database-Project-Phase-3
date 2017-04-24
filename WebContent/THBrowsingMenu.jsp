@@ -12,7 +12,7 @@
 	<ol>
 		<li><a href="THSearchMenu.jsp">Search for a TH</a></li>
 		<li><a href="THFavoriteMenu.jsp">View favorite THs</a></li>
-		<li><a href="ManagePropertyMenu.jsp">View all listed THs</a></li>
+		<li><a href="ViewAllListedTH.jsp">View all listed THs</a></li>
 		<li><a href="MainUserMenu.jsp">Back to menu</a></li>
 	</ol>
 </body>
