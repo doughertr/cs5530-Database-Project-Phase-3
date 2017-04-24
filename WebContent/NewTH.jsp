@@ -1,4 +1,5 @@
 <%@page import="cs5530.*"%>
+<%@page import="cs5530.TH"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -59,19 +60,10 @@ if(name == null && address == null && url == null && category == null && phone =
 <%
 } 
 else{
-	Connector con = new Connector();
-	User user = User.createUser(login, password, fName, lName, address, phone);
+	//Connector con = new Connector();
+	//TH.AddNewTH(name, address, url, category, phone, year, session.get, keywords);
+	//User user = User.createUser(login, password, fName, lName, address, phone);
 	
-	if(user != null)
-	{%>
-		<p>log in success!</p>
-	<%
-		Thread.sleep(1000);
-		response.sendRedirect(response.encodeRedirectURL("MainUserMenu.jsp"));
-	}
-	else
-	{%>
-		Failed to Login
-	<%}
+	
 }%>
 </body></html>
