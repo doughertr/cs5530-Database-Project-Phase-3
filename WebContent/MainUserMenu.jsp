@@ -19,6 +19,7 @@
 	<li><a href="StatsMenu.jsp">View User Stats</a></li>
 	<li><a href="CommunityMenu.jsp">View Community Page</a></li>
 	<li><a href="AdminMenu.jsp">View Admin Menu</a></li>
+	<!-- we should add a log out option -->
 </ol>
 </body>
 </html>
